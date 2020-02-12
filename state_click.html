@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyAfodtELXdyWEuBiZxS85VoHmxSe4ILMT0'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var states = [
+          ['State'],
+          ['US-AL'],
+          ['US-AK'],
+          ['US-AR'],
+          ['US-AK'],
+          ['US-AZ'],
+          ['US-Colorado'],
+          ['US-CO'],
+          ['US-DE'],
+          ['US-FL'],
+          ['US-HI'],
+          ['US-KS'],
+          ['US-KY'],
+          ['US-MI'],
+          ['US-MO'],
+          ['US-MS'],
+          ['US-MT'],
+          ['US-NE'],
+          ['US-NJ'],
+          ['US-NM'],
+          ['US-NY'],
+          ['US-OR'],
+          ['US-PA'],
+          ['TEXAS'],
+          ['US-UT'],
+          ['US-VA'],
+          ['US-WA'],
+          ['US-WV'],
+          ['US-WY'],
+      ];
+
+        var data = google.visualization.arrayToDataTable(states);
+
+        var options = {
+            region: 'US',
+            displayMode: 'regions',
+            resolution: 'provinces',
+            defaultColor: 'blue',
+            enableRegionInteractivity: true, //to enable region click in marker mode.
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+        google.visualization.events.addListener(chart, 'select', myClickHandler);
+        chart.draw(data, options);
+
+        function myClickHandler(){
+          var selection = chart.getSelection();
+          var state_index = selection[0].row;
+          console.log(states[state_index+1][0]);
+        }
+
+      };
+    </script>
+  </head>
+  <body>
+    <div id="geochart-colors" style="width: 700px; height: 433px;"></div>
+  </body>
+</html>
